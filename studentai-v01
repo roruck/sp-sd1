@@ -1,0 +1,82 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <iomanip>
+#include <numeric>
+
+class Studentas {
+private:
+    std::string vardas;
+    std::string pavarde;
+    std::vector<int> namuDarbai;
+    int egzaminas;
+    double galutinis;
+
+public:
+    // Konstruktoriai
+    Studentas() : vardas(""), pavarde(""), egzaminas(0), galutinis(0.0) {}
+
+    // Kopijavimo konstruktorius (trijų taisyklė)
+    Studentas(const Studentas& kitas) {
+        vardas = kitas.vardas;
+        pavarde = kitas.pavarde;
+        namuDarbai = kitas.namuDarbai;
+        egzaminas = kitas.egzaminas;
+        galutinis = kitas.galutinis;
+    }
+
+    // Priskyrimo operatorius (trijų taisyklė)
+    Studentas& operator=(const Studentas& kitas) {
+        if (this == &kitas) return *this; // Savo paties priskyrimo patikrinimas
+        vardas = kitas.vardas;
+        pavarde = kitas.pavarde;
+        namuDarbai = kitas.namuDarbai;
+        egzaminas = kitas.egzaminas;
+        galutinis = kitas.galutinis;
+        return *this;
+    }
+
+    // Destruktorius (trijų taisyklė)
+    ~Studentas() {}
+
+    // Duomenų įvedimas
+    void ivestiDuomenis() {
+        std::cout << "Iveskite studento varda: ";
+        std::cin >> vardas;
+        std::cout << "Iveskite studento pavarde: ";
+        std::cin >> pavarde;
+
+        std::cout << "Iveskite namu darbu rezultatus (iveskite -1, kad pabaigtumete): ";
+        int ndRez;
+        while (std::cin >> ndRez && ndRez != -1) {
+            namuDarbai.push_back(ndRez);
+        }
+
+        std::cout << "Iveskite egzamino rezultata: ";
+        std::cin >> egzaminas;
+    }
+
+    // Galutinio balo skaičiavimas
+    void skaiciuotiGalutini(bool naudotiVidurki = true) {
+        double vidurkis = std::accumulate(namuDarbai.begin(), namuDarbai.end(), 0.0) / namuDarbai.size();
+
+        if (!naudotiVidurki) {
+            std::sort(namuDarbai.begin(), namuDarbai.end());
+            if (namuDarbai.size() % 2 == 0) {
+                galutinis = (namuDarbai[namuDarbai.size() / 2 - 1] + namuDarbai[namuDarbai.size() / 2]) / 2.0;
+            } else {
+                galutinis = namuDarbai[namuDarbai.size() / 2];
+            }
+            galutinis = 0.4 * galutinis + 0.6 * egzaminas;
+        } else {
+            galutinis = 0.4 * vidurkis + 0.6 * egzaminas;
+        }
+    }
+
+    // Duomenų išvedimas
+    void isvestiDuomenis(bool naudotiVidurki = true) const {
+        std::cout << std::setw(15) << std::left << pavarde
+                  << std::setw(15) << std::left << vardas
+                  << std::setw(15) << std::fixed << std::setprecision(2) << galutinis << std::endl;
+    }
+};
