@@ -1,0 +1,29 @@
+#include "Studentas.h"
+#include <vector>
+
+int main() {
+    std::vector<Studentas> studentai;
+    int studentuSkaicius;
+
+    std::cout << "Iveskite studentu skaiciu: ";
+    std::cin >> studentuSkaicius;
+
+    for (int i = 0; i < studentuSkaicius; ++i) {
+        Studentas stud;
+        stud.ivestiDuomenis();
+        bool naudotiVidurki;
+        std::cout << "Ar norite naudoti vidurki (1 - taip, 0 - ne (median))? ";
+        std::cin >> naudotiVidurki;
+        stud.skaiciuotiGalutini(naudotiVidurki);
+        studentai.push_back(stud);
+    }
+
+    // Išvedimas
+    std::cout << "Pavarde          Vardas           Galutinis" << std::endl;
+    std::cout << "------------------------------------------" << std::endl;
+    for (const auto& stud : studentai) {
+        stud.isvestiDuomenis();
+    }
+
+    return 0;
+}
