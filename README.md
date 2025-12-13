@@ -1,17 +1,9 @@
-# SD1 Conference System (Laravel)
+# SD1 – Conference System
 
-This project is prepared for SD1 submission.
+Romas Ruckis PIT-23
 
-## What you submit to Moodle
-- GitHub HTTPS repository link
-- Project ZIP (this folder zipped)
-
-## Pages
-- / (home)
-- /client/conferences
-- /employee/conferences
-- /admin
-
-## Notes
-- No database is used (session-based fake data).
-- Bootstrap (CSS) + SweetAlert2 (JS) are included via NPM and used in assets.
+Paleidimas:
+- composer install
+- npm install
+- npm run dev
+- php artisan serve
